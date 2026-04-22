@@ -1,0 +1,46 @@
+{% extends 'dashboard.html' %}
+
+{% block title %}
+<title>View All Notes</title>
+{% endblock %}
+
+{% block addcss %}
+<link rel="stylesheet" href="{{ url_for('static', filename='viewallnotes.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h2>All Notes</h2>
+    
+    {% if notes %}
+    <table class="notes-table">
+        <thead>
+            <tr>
+                <th>Notes ID</th>
+                <th>Notes Title</th>
+                <th>Created At</th>
+                <th>View</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for note in notes %}
+            <tr>
+                <td>{{ note[0] }}</td>
+                <td>{{ note[1] }}</td>
+                <td>{{ note[2] }}</td>
+                <td><a href="{{url_for('viewnotes',nid=note[0])}}">View</a></td>
+                <td><a href="{{url_for('updatenotes',nid=note[0])}}">Update</a></td>
+                <td><a href="{{url_for('deletenotes',nid=note[0])}}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No notes available.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

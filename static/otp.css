@@ -1,0 +1,83 @@
+/* Page layout */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Header */
+header h1 {
+    color: white;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form container */
+div {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 18px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 300px;
+}
+
+/* Label */
+label {
+    font-weight: bold;
+}
+
+/* Input field */
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.3s;
+}
+
+/* Input focus */
+input:focus {
+    border-color: #a18cd1;
+    box-shadow: 0 0 5px rgba(161,140,209,0.5);
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #6a5acd;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Button hover */
+button:hover {
+    background-color: #5a4abd;
+}
+
+/* Flash messages */
+.flashes {
+    list-style: none;
+    padding: 10px;
+    text-align: center;
+}
+
+.flashes li {
+    background-color: #ffe0e0;
+    color: #c0392b;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 6px;
+}

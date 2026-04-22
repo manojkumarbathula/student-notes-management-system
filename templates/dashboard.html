@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %} <title>Document</title>{%  endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    {% block addcss %}{% endblock %}
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">Dashboard</div>
+
+    <ul class="nav-links">
+
+        <!-- Notes Dropdown -->
+        <li class="dropdown">
+            <a href="#">Notes ▾</a>
+            <ul class="dropdown-menu">
+                <li><a href="{{url_for('addnotes')}}">Add Notes</a></li>
+                <li><a href="{{url_for('viewallnotes')}}">View All Notes</a></li>
+                <li><a href="{{url_for('getexceldata')}}">Get Excel Data</a></li>
+            </ul>
+        </li>
+
+        <!-- Files Dropdown -->
+        <li class="dropdown">
+            <a href="#">Files ▾</a>
+            <ul class="dropdown-menu">
+                <li><a href="{{url_for('fileupload')}}">Upload File</a></li>
+                <li><a href="{{url_for('viewallfiles')}}">View All Files</a></li>
+            </ul>
+        </li>
+
+        <!-- Search -->
+        <li>
+            
+            <form class="search-form" method="post" action="{{url_for('search')}}">
+                <input type="text" name="search_value" placeholder="Search...">
+            </form>
+        
+        </li>
+        {{session.get('user')}}
+        <!-- Logout -->
+        <li><a href="{{url_for('logout')}}" class="logout">Logout</a></li>
+
+    </ul>
+</nav>
+{% block content %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otp page</title>
+    <style>
+        .flashes{
+            color: crimson;
+            font-weight: bold ;
+
+        }
+    </style>
+</head>
+<body>
+    
+    <center>
+        <form method="post">
+            <label>OTP</label><br><br>
+            <input type="text" name="otp" placeholder="Enter your OTP" required>
+                   {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div class=flashes>
+                            {% for message in messages %}
+                            <b>{{ message }}</b>
+                            {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% endwith %}<br>
+
+
+            <button type="submit">Submit</button>
+</center>
+     
+        </form>
+    
+</body>
+</html>
