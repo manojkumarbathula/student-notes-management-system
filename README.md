@@ -23,6 +23,7 @@ A Flask-based web application to manage notes securely.
 
 
 pip install -r requirements.txt
+
 python app.py
 
 
