@@ -1,20 +1,26 @@
 from flask import Flask,request,redirect,url_for,render_template,flash,session,send_file,jsonify
 from flask_session import Session
+from flask_bcrypt import Bcrypt
 from otp import genotp
 import flask_excel as excel
 import re
+import os
+from dotenv import load_dotenv
 from cmail import send_mail
 from stoken import endata,dndata
 import mysql.connector
 from io import BytesIO
 
-mydb = mysql.connector.connect(user='root', password='Manoj@1612',
+load_dotenv()
+
+mydb = mysql.connector.connect(user='root', password=os.environ.get('DB_PASSWORD'),
                               host='localhost',
                               db='snmdb')
 app=Flask(__name__)
 excel.init_excel(app)
 app.config['SESSION_TYPE']='filesystem'
-app.secret_key = b'b\x8bD\xfd\xc4'
+app.secret_key = os.environ.get('SECRET_KEY')
+bcrypt = Bcrypt(app)
 @app.route('/')
 def home():
     return render_template('welcome.html')
@@ -59,9 +65,9 @@ def otpverify(server_data):
             if user_otp==de_userdata['server_otp']:
                 try:
                     cursor=mydb.cursor()
+                    hashed_password = bcrypt.generate_password_hash(de_userdata['userpassword']).decode('utf-8')
                     cursor.execute('insert into userdata(username,useremail,userpassword) values(%s,%s,%s)',
-                                   [de_userdata['username'],de_userdata['useremail'],de_userdata['userpassword']])
-                    mydb.commit()
+                        [de_userdata['username'],de_userdata['useremail'],hashed_password])
                     cursor.close()
                 except Exception as e:
                     print(e)
@@ -85,7 +91,7 @@ def login():
             if email_count[0]==1:
                 cursor.execute('select userpassword from userdata where useremail=%s',[login_useremail])
                 stored_password=cursor.fetchone()[0]
-                if stored_password==login_password:
+                if bcrypt.check_password_hash(stored_password, login_password):
                     session['user']=login_useremail
                     return redirect(url_for('dashboard'))
                 else:
@@ -325,7 +331,7 @@ def deletefile(fid):
             mydb.commit()
             cursor.close()
             flash("Note deleted successfully")
-            return redirect(url_for('viewallfles'))
+            return redirect(url_for('viewallfiles'))
 
         except Exception as e:
             print(e)
@@ -449,5 +455,6 @@ def newpassword(data):
             else:
                 return jsonify({'message':'ok'})
     return render_template('newpassword.html',data=data)
-if __name__== "__main__":
-    app.run(debug=True)
+
+if __name__ == "__main__":
+    app.run(debug=True, use_reloader=True)
