@@ -12,10 +12,16 @@ import mysql.connector
 from io import BytesIO
 
 load_dotenv()
+mydb = mysql.connector.connect(
+    user=os.environ.get("DB_USER"),
+    password=os.environ.get("DB_PASSWORD"),
+    host=os.environ.get("DB_HOST"),
+    port=int(os.environ.get("DB_PORT", 3306)),
+    database=os.environ.get("DB_NAME"),
+    ssl_ca=os.path.join(os.path.dirname(__file__), "ca.pem"),
+    ssl_verify_cert=True
+)
 
-mydb = mysql.connector.connect(user='root', password=os.environ.get('DB_PASSWORD'),
-                              host='localhost',
-                              db='snmdb')
 app=Flask(__name__)
 excel.init_excel(app)
 app.config['SESSION_TYPE']='filesystem'
