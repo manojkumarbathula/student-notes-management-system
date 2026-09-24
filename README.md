@@ -5,7 +5,7 @@ A Flask-based web application that allows users to securely manage their notes, 
 
 ## 🚀 Live Demo
 
-[Student Notes Management System](https://student-notes-management-system-2-6cbn.onrender.com/)
+https://student-notes-management-system-2-6cbn.onrender.com/
 
 ## ✨ Features
 
@@ -125,4 +125,4 @@ The application is deployed on Render and uses Aiven Cloud MySQL as its database
 
 **Manoj Kumar Bathula**
 
-GitHub: [manojkumarbathula](https://github.com/manojkumarbathula)
+GitHub: https://github.com/manojkumarbathula
